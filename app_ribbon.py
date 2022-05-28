@@ -374,5 +374,5 @@ print(selection)
 
 st.header('MA - Ribbon - Upon')
 
-st.pyplot(selection['P&L Cum'])
+st.line_chart(selection['P&L Cum'])
 #%%
