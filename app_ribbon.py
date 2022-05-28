@@ -5,7 +5,6 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 
 
@@ -230,31 +229,7 @@ def move_averages(data_frame, type_ma,ma,name,sinal,wg,inc):
 
 
 
-def plot_ma_ribbon(data_frame,ma,name,type_ma,inc):
-    import matplotlib.pyplot as plt
-    mv=[]
-    for i in range(0,10):
-        mv.append('ma'+str(ma+i*inc))
-    data_buy=data_frame[data_frame['signal']==1]
-    data_neutral=data_frame[data_frame['signal']==0]
-    data_sell=data_frame[data_frame['signal']==-1]
-    plt.figure(figsize=(15,6))
-    plt.title('Moving Average '+'- '+type_ma)
-    plt.plot(data_frame[mv[0]],label=mv[0])
-    plt.plot(data_frame[mv[1]],label=mv[1])
-    plt.plot(data_frame[mv[2]],label=mv[2])
-    plt.plot(data_frame[mv[3]],label=mv[3])
-    plt.plot(data_frame[mv[4]],label=mv[4])
-    plt.plot(data_frame[mv[5]],label=mv[5])
-    plt.plot(data_frame[mv[6]],label=mv[6])
-    plt.plot(data_frame[mv[7]],label=mv[7])
-    plt.plot(data_frame[mv[8]],label=mv[8])
-    plt.plot(data_frame[mv[9]],label=mv[9])
-    plt.scatter(data_buy.index,data_buy[name],label='buy',c='green')
-    plt.scatter(data_neutral.index,data_neutral[name],label='neutral',c='black')
-    plt.scatter(data_sell.index,data_sell[name],label='sell',c='red')
-    plt.legend(loc='upper left')
-    plt.show()
+
 
 
 def tr_and_n(df_c_h_l,data_frame,name):
@@ -368,7 +343,7 @@ data=data.pivot_table(index='DATES',columns='ASSET',values='PX LAST')
 close_high_low=close[close['ASSET']==name]
 ma_data=tr_and_n(close_high_low,data,name)
 ma_data=move_averages(ma_data,tipo_ma,ma,name,sinal_type,wg,inc)
-img = plot_ma_ribbon(ma_data,ma,name,tipo_ma,inc)
+#img = plot_ma_ribbon(ma_data,ma,name,tipo_ma,inc)
 
 selection=pd.DataFrame({'weight':ma_data['signal'],
                         'price':ma_data[name],
@@ -399,4 +374,5 @@ print(selection)
 
 st.header('MA - Ribbon - Upon')
 
-st.write('MA Ribbon signals:',img)
+st.pyplot(selection['P&L Cum'])
+#%%
