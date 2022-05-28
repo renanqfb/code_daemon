@@ -373,6 +373,6 @@ for i in range(len(selection)):
 print(selection)
 
 st.header('MA - Ribbon - Upon')
-
+st.text('P&L Acumulado')
 st.line_chart(selection['P&L Cum'])
 #%%
